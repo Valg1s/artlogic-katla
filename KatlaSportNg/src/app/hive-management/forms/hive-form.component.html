@@ -14,11 +14,28 @@
         <div *ngIf="name.errors.required">Hive Name is required.</div>
         <div *ngIf="name.errors.minlength">Hive Name must be at least 4 characters long.</div>
       </div>
+      <label for="code" id="codeLabel">Hive Code</label>
+      <input type="text" class="form-control" id="code" aria-describedby="codeLabel" minlength="5" maxlength="5" required [(ngModel)]="hive.code"
+        name="code" #name="ngModel">
+      
+      <label for="address" id="adressLabel">Hive Address</label>
+      <input type="text" class="form-control" id="address" aria-describedby="addressLabel" minlength="4" maxlength="300" required [(ngModel)]="hive.address"
+        name="address" >
     </div>
     <div class="form-group" *ngIf='existed'>
       <label for="lastUpdated" id="lastUpdatedLabel">Last Update</label>
       <input type="text" class="form-control" id="lastUpdated" aria-describedby="lastUpdatedLabel" required [(ngModel)]="hive.lastUpdated"
         name="lastUpdated" #lastUpdated="ngModel" readonly>
+    </div>
+    <div class="btn-toolbar" role="toolbar" aria-label="Action buttons">
+      <div class="btn-group" role="group" aria-label="New group">
+        <button (click)="onCancel()" type="button" class="btn btn-primary mr-2">Back</button>
+        <button *ngIf='!existed' (click)="onSubmit()" type="button" class="btn btn-primary mr-2">Create</button>
+        <button *ngIf='existed' (click)="onSubmit()" type="button" class="btn btn-primary mr-2">Save</button>
+        <button *ngIf='existed' (click)="onDelete()" type="button" class="btn btn-primary mr-2">Delete</button>
+        <button *ngIf='existed' (click)="onUndelete()" type="button" class="btn btn-primary mr-2">Undelete</button>
+        <button *ngIf='existed' (click)="onPurge()" type="button" class="btn btn-primary mr-2">Purge</button>
+      </div>
     </div>
   </form>
 </div>
