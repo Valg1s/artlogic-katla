@@ -1,3 +1,37 @@
-<p>
-  hive-section-form works!
-</p>
+<div class="container">
+  <h2>Hive Section Editor</h2>
+  <form (ngSubmit)="onSubmit()" #hiveSectionForm="ngForm">
+    <div class="form-group" *ngIf='existed'>
+      <label for="idLabel">ID</label>
+      <input type="text" class="form-control" id="id" aria-describedby="idLabel" [(ngModel)]="hiveSection.id" name="id" #id="ngModel"
+        readonly>
+    </div>
+    <div class="form-group">
+      <label for="name" id="nameLabel">Hive Section Name</label>
+      <input type="text" class="form-control" id="name" aria-describedby="nameLabel" minlength="4" maxlength="60" required [(ngModel)]="hiveSection.name"
+        name="name" #name="ngModel">
+      <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert alert-danger">
+        <div *ngIf="name.errors.required">Hive Name is required.</div>
+        <div *ngIf="name.errors.minlength">Hive Name must be at least 4 characters long.</div>
+      </div>
+      <label for="code" id="codeLabel">Hive Section Code</label>
+      <input type="text" class="form-control" id="code" aria-describedby="codeLabel" minlength="5" maxlength="5" required [(ngModel)]="hiveSection.code"
+        name="code" #name="ngModel">
+    </div>
+    <div class="form-group" *ngIf='existed'>
+      <label for="lastUpdated" id="lastUpdatedLabel">Last Update</label>
+      <input type="text" class="form-control" id="lastUpdated" aria-describedby="lastUpdatedLabel" required [(ngModel)]="hiveSection.lastUpdated"
+        name="lastUpdated" #lastUpdated="ngModel" readonly>
+    </div>
+    <div class="btn-toolbar" role="toolbar" aria-label="Action buttons">
+      <div class="btn-group" role="group" aria-label="New group">
+        <button (click)="onCancel()" type="button" class="btn btn-primary mr-2">Back</button>
+        <button *ngIf='!existed' (click)="onSubmit()" type="button" class="btn btn-primary mr-2">Create</button>
+        <button *ngIf='existed' (click)="onSubmit()" type="button" class="btn btn-primary mr-2">Save</button>
+        <button *ngIf='existed' (click)="onDelete()" type="button" class="btn btn-primary mr-2">Delete</button>
+        <button *ngIf='existed' (click)="onUndelete()" type="button" class="btn btn-primary mr-2">Undelete</button>
+        <button *ngIf='existed' (click)="onPurge()" type="button" class="btn btn-primary mr-2">Purge</button>
+      </div>
+    </div>
+  </form>
+</div>
